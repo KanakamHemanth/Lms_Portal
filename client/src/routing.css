@@ -1,0 +1,10 @@
+.nav-links a{color:#716f7e;text-decoration:none;padding:9px 12px;font-size:12px}
+.nav-links a.active:not(.nav-primary){color:#625a8d}
+.nav-links .nav-primary{color:#fff;text-decoration:none}
+.link-button{display:inline-block;text-decoration:none}
+.home-links{text-align:center;padding:45px 15px}
+.home-links h2{font-size:22px;margin:0 0 7px}
+.home-links p,.page-link{font-size:11px;color:var(--muted);margin:0 0 18px}
+.home-links .link-button{margin-top:2px}
+.page-link{text-align:center;margin-top:-30px}
+.page-link a{color:var(--purple)}
