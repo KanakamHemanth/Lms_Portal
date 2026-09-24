@@ -10,7 +10,8 @@ export default function AuthForm({ mode, onLogin, onMessage }) {
     const formData = Object.fromEntries(new FormData(event.currentTarget));
     try {
       const result = await apiRequest(`/auth/${mode}`, 'POST', formData);
-      if (mode === 'login') onLogin(result.token || result.Token);
+      if (mode === 'login') onLogin(result.token || result.Token, result.user);
+
       else onMessage('Account created. Please log in.');
     } catch (error) {
       onMessage(error.message);

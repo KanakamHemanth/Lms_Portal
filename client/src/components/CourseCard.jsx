@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
-export default function CourseCard({ course, index, onEdit, onDelete }) {
+export default function CourseCard({ course, index, user, onEdit, onDelete }) {
   const navigate = useNavigate();
   const courseId = course._id || course.id;
+  const canManage = user && (user.role === 'admin' || user.role === 'instructor');
+
 
   const instructorName = typeof course.instructor === 'object'
     ? (course.instructor?.name || 'Course instructor')
@@ -46,25 +48,30 @@ export default function CourseCard({ course, index, onEdit, onDelete }) {
           >
             View Details →
           </button>
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              onEdit(course);
-            }}
-          >
-            Edit
-          </button>
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              onDelete(courseId);
-            }}
-          >
-            Delete
-          </button>
+          {canManage && (
+            <>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEdit(course);
+                }}
+              >
+                Edit
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete(courseId);
+                }}
+              >
+                Delete
+              </button>
+            </>
+          )}
         </div>
+
       </div>
     </article>
   );

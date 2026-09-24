@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { apiRequest } from '../services/api.js';
 import CourseForm from '../components/CourseForm.jsx';
 
-export default function CourseDetailPage({ token, onMessage }) {
+export default function CourseDetailPage({ token, user, onMessage }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [course, setCourse] = useState(null);
@@ -11,6 +11,9 @@ export default function CourseDetailPage({ token, onMessage }) {
   const [enrolled, setEnrolled] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [busy, setBusy] = useState(false);
+
+  const canManage = user && (user.role === 'admin' || user.role === 'instructor');
+
 
   useEffect(() => {
     let cancelled = false;
@@ -171,7 +174,7 @@ export default function CourseDetailPage({ token, onMessage }) {
             </div>
           </div>
 
-          {token && (
+          {token && canManage && (
             <div className="detail-admin-actions">
               <button
                 type="button"
@@ -189,6 +192,7 @@ export default function CourseDetailPage({ token, onMessage }) {
               </button>
             </div>
           )}
+
         </aside>
       </header>
 
